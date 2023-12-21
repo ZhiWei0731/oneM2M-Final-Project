@@ -1,0 +1,778 @@
+[
+    {
+        "id": "4282b4937a9fe8ea",
+        "type": "tab",
+        "label": "Project NB-IoT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f0f10fd6dac12713",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "random temp1",
+        "func": "var maxTemperature = 30;\nvar minTemperature = 20;\nvar diff = maxTemperature - minTemperature;\nvar random_temp = Math.random() * diff + minTemperature;\nmsg.payload = random_temp.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "f4665ff94d3d8c5f"
+            ]
+        ]
+    },
+    {
+        "id": "1e147e0eb5eaa330",
+        "type": "inject",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "f0f10fd6dac12713"
+            ]
+        ]
+    },
+    {
+        "id": "b4e3f64f91710c92",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "generate temp sensor1",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f4665ff94d3d8c5f",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "set temp1 to flow",
+        "func": "flow.set(\"temp1\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 80,
+        "wires": [
+            [
+                "e233544b0b9e8832"
+            ]
+        ]
+    },
+    {
+        "id": "e233544b0b9e8832",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 48",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "54402ce8d43dca56",
+        "type": "http in",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "url": "/get_temp_sensor1",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "eb912c24737434bb"
+            ]
+        ]
+    },
+    {
+        "id": "b67822cc3134ac94",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 80",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b7e289a62ecab706",
+        "type": "http response",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "65d49f962b9afe0d",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "send temp sensor1 data",
+        "info": "",
+        "x": 140,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "73b0a97e46b6d6a2",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "generate temp sensor2 ",
+        "info": "",
+        "x": 140,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a1e89c347924b8f3",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 82",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "785349ed7a8006d8",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "set temp2 to flow",
+        "func": "flow.set(\"temp2\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 160,
+        "wires": [
+            [
+                "a1e89c347924b8f3"
+            ]
+        ]
+    },
+    {
+        "id": "bdee1fd798f98577",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "random temp2",
+        "func": "var maxTemperature = 28;\nvar minTemperature = 18;\nvar diff = maxTemperature - minTemperature;\nvar random_temp = Math.random() * diff + minTemperature;\nmsg.payload = random_temp.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "785349ed7a8006d8"
+            ]
+        ]
+    },
+    {
+        "id": "c188d31f9895822c",
+        "type": "inject",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "bdee1fd798f98577"
+            ]
+        ]
+    },
+    {
+        "id": "a8138f5724a387be",
+        "type": "http request",
+        "z": "4282b4937a9fe8ea",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "b7e289a62ecab706",
+                "b67822cc3134ac94"
+            ]
+        ]
+    },
+    {
+        "id": "f225bae1795d3a89",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "random humi1",
+        "func": "var maxHumidity = 40;\nvar minHumidity = 0;\nvar diff = maxHumidity - minHumidity;\nvar random_humi = Math.random() * diff + minHumidity;\nmsg.payload = random_humi.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "7fd3e85e43bc5486"
+            ]
+        ]
+    },
+    {
+        "id": "28659e481f0b63b1",
+        "type": "inject",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "f225bae1795d3a89"
+            ]
+        ]
+    },
+    {
+        "id": "9e91c3b370d1df72",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "generate humi sensor1",
+        "info": "",
+        "x": 140,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7fd3e85e43bc5486",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "set humi1 to flow",
+        "func": "flow.set(\"humi1\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 240,
+        "wires": [
+            [
+                "e01c0996dc3b9b19"
+            ]
+        ]
+    },
+    {
+        "id": "e01c0996dc3b9b19",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 92",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1a866da77492bf0f",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "random humi2",
+        "func": "var maxHumidity = 85;\nvar minHumidity = 50;\nvar diff = maxHumidity - minHumidity;\nvar random_humi = Math.random() * diff + minHumidity;\nmsg.payload = random_humi.toFixed(2);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "6759744db594f92f"
+            ]
+        ]
+    },
+    {
+        "id": "413161d40204b29d",
+        "type": "inject",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "1a866da77492bf0f"
+            ]
+        ]
+    },
+    {
+        "id": "00d6d641d21a836c",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "generate humi sensor2",
+        "info": "",
+        "x": 140,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6759744db594f92f",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "set humi2 to flow",
+        "func": "flow.set(\"humi2\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "ac28045f920ce084"
+            ]
+        ]
+    },
+    {
+        "id": "ac28045f920ce084",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 93",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "eb912c24737434bb",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "prepare packet",
+        "func": "var base64Credentials = Buffer.from(\"admin:admin\").toString('base64');\n\nmsg.headers = {\n    \"Content-Type\": \"application/x-www-form-urlencoded\",\n    \"Authorization\": \"Basic \" + base64Credentials\n};\n\nvar queryParams = {\n    appID: \"Temp_Sensor1\",\n    category: \"Temperature\",\n    data: flow.get(\"temp1\"),\n    unit: \"Celsius\"\n};\n\nvar query = \"appID=\" + queryParams.appID\n    + \"&category=\" + queryParams.category\n    + \"&data=\" + queryParams.data\n    + \"&unit=\" + queryParams.unit;\n\nmsg.url = \"http://127.0.0.1:8282/~/mn-cse/mn-name/Sensor?\"\n    + query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "a8138f5724a387be"
+            ]
+        ]
+    },
+    {
+        "id": "f88042dbc7b9f29e",
+        "type": "http in",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "url": "/get_temp_sensor2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "98d61f0fa7093038"
+            ]
+        ]
+    },
+    {
+        "id": "141126fa6b9549b5",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 119",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "096b1d89747c548b",
+        "type": "http response",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "6f275fd4914e02db",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "send temp sensor2 data",
+        "info": "",
+        "x": 140,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "6b6f0155444cc8c8",
+        "type": "http request",
+        "z": "4282b4937a9fe8ea",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 560,
+        "wires": [
+            [
+                "096b1d89747c548b",
+                "141126fa6b9549b5"
+            ]
+        ]
+    },
+    {
+        "id": "98d61f0fa7093038",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "prepare packet",
+        "func": "var base64Credentials = Buffer.from(\"admin:admin\").toString('base64');\n\nmsg.headers = {\n    \"Content-Type\": \"application/x-www-form-urlencoded\",\n    \"Authorization\": \"Basic \" + base64Credentials\n};\n\nvar queryParams = {\n    appID: \"Temp_Sensor2\",\n    category: \"Temperature\",\n    data: flow.get(\"temp2\"),\n    unit: \"Celsius\"\n};\n\nvar query = \"appID=\" + queryParams.appID\n            + \"&category=\" + queryParams.category\n            + \"&data=\" + queryParams.data\n            + \"&unit=\" + queryParams.unit;\n\nmsg.url = \"http://127.0.0.1:8282/~/mn-cse/mn-name/Sensor?\" \n            + query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 560,
+        "wires": [
+            [
+                "6b6f0155444cc8c8"
+            ]
+        ]
+    },
+    {
+        "id": "8be7c6e8fbb03ef6",
+        "type": "http in",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "url": "/get_humi_sensor1",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 660,
+        "wires": [
+            [
+                "806acd0fdca90451"
+            ]
+        ]
+    },
+    {
+        "id": "f5ae2d4fb9bd9354",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 120",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "f287b75a4e6772ce",
+        "type": "http response",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c6d2db8cfc34648f",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "send humi sensor1 data",
+        "info": "",
+        "x": 140,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "77b4a2e4ee613905",
+        "type": "http request",
+        "z": "4282b4937a9fe8ea",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 660,
+        "wires": [
+            [
+                "f287b75a4e6772ce",
+                "f5ae2d4fb9bd9354"
+            ]
+        ]
+    },
+    {
+        "id": "806acd0fdca90451",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "prepare packet",
+        "func": "var base64Credentials = Buffer.from(\"admin:admin\").toString('base64');\n\nmsg.headers = {\n    \"Content-Type\": \"application/x-www-form-urlencoded\",\n    \"Authorization\": \"Basic \" + base64Credentials\n};\n\nvar queryParams = {\n    appID: \"Humi_Sensor1\",\n    category: \"Humidity\",\n    data: flow.get(\"humi1\"),\n    unit: \"Relative_Humidity\"\n};\n\nvar query = \"appID=\" + queryParams.appID\n    + \"&category=\" + queryParams.category\n    + \"&data=\" + queryParams.data\n    + \"&unit=\" + queryParams.unit;\n\nmsg.url = \"http://127.0.0.1:8282/~/mn-cse/mn-name/Sensor?\"\n    + query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 660,
+        "wires": [
+            [
+                "77b4a2e4ee613905"
+            ]
+        ]
+    },
+    {
+        "id": "43e315ca0de39c3e",
+        "type": "http in",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "url": "/get_humi_sensor2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "5fa7dfb479ad58a4"
+            ]
+        ]
+    },
+    {
+        "id": "a9097aa45ed9488d",
+        "type": "debug",
+        "z": "4282b4937a9fe8ea",
+        "name": "debug 121",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "ce70d2d9acee54c4",
+        "type": "http response",
+        "z": "4282b4937a9fe8ea",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "781977b12cfb03d3",
+        "type": "comment",
+        "z": "4282b4937a9fe8ea",
+        "name": "send humi sensor2 data",
+        "info": "",
+        "x": 140,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e8a853e5522d8105",
+        "type": "http request",
+        "z": "4282b4937a9fe8ea",
+        "name": "POST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 760,
+        "wires": [
+            [
+                "ce70d2d9acee54c4",
+                "a9097aa45ed9488d"
+            ]
+        ]
+    },
+    {
+        "id": "5fa7dfb479ad58a4",
+        "type": "function",
+        "z": "4282b4937a9fe8ea",
+        "name": "prepare packet",
+        "func": "var base64Credentials = Buffer.from(\"admin:admin\").toString('base64');\n\nmsg.headers = {\n    \"Content-Type\": \"application/x-www-form-urlencoded\",\n    \"Authorization\": \"Basic \" + base64Credentials\n};\n\nvar queryParams = {\n    appID: \"Humi_Sensor2\",\n    category: \"Humidity\",\n    data: flow.get(\"humi2\"),\n    unit: \"Relative_Humidity\"\n};\n\nvar query = \"appID=\" + queryParams.appID\n    + \"&category=\" + queryParams.category\n    + \"&data=\" + queryParams.data\n    + \"&unit=\" + queryParams.unit;\n\nmsg.url = \"http://127.0.0.1:8282/~/mn-cse/mn-name/Sensor?\"\n    + query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 760,
+        "wires": [
+            [
+                "e8a853e5522d8105"
+            ]
+        ]
+    }
+]

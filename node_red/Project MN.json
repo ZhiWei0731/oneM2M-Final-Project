@@ -1,0 +1,1628 @@
+[
+    {
+        "id": "98d16fafc10f441e",
+        "type": "tab",
+        "label": "Project MN",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "326ac5d779a40dcf",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "record time",
+        "info": "",
+        "x": 100,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "0d47b24277934bd3",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "d": true,
+        "name": "產生時間",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "ca65b5e5fd3c9add"
+            ]
+        ]
+    },
+    {
+        "id": "ca65b5e5fd3c9add",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "儲存時間到flow",
+        "func": "flow.set(\"time\", msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 60,
+        "wires": [
+            [
+                "5ccb731a292286ae"
+            ]
+        ]
+    },
+    {
+        "id": "5ccb731a292286ae",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "76962a79bf5702c4",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1.2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1040,
+        "wires": [
+            [
+                "610711e73b5a5462"
+            ]
+        ]
+    },
+    {
+        "id": "610711e73b5a5462",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "check temp_sensor1 state from flow",
+        "func": "var open_close = flow.get(\"temp_sensor1_open_close\");\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1040,
+        "wires": [
+            [
+                "321657d791a7b561"
+            ]
+        ]
+    },
+    {
+        "id": "321657d791a7b561",
+        "type": "switch",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 590,
+        "y": 1040,
+        "wires": [
+            [
+                "c7b2115670a2933b"
+            ],
+            [
+                "0a18bbcdf5ba4655"
+            ],
+            [
+                "f5d6085047343c16"
+            ]
+        ]
+    },
+    {
+        "id": "0a18bbcdf5ba4655",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "close",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "c7b2115670a2933b",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "NULL",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "7ca50f4a773b07d5",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "send GET temp sensor1 to operator server",
+        "info": "",
+        "x": 200,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "9a5f65305d6aab12",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c419d6df4a7bc3ec",
+        "type": "http in",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "url": "/temp_sensor1_state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "587721f25ad97aad",
+                "981e475d86c9b345",
+                "5266df9e33ef4633"
+            ]
+        ]
+    },
+    {
+        "id": "587721f25ad97aad",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 46",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "981e475d86c9b345",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "10d65d176b319229",
+                "cde4b5539d4ae5d7"
+            ]
+        ]
+    },
+    {
+        "id": "10d65d176b319229",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 440,
+        "wires": [
+            [
+                "279310219c722bf2"
+            ]
+        ]
+    },
+    {
+        "id": "279310219c722bf2",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "set open_close to flow",
+        "func": "var open_close = msg.payload.obj.str[0].$.val\nflow.set(\"temp_sensor1_open_close\", open_close);\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 440,
+        "wires": [
+            [
+                "9a5f65305d6aab12"
+            ]
+        ]
+    },
+    {
+        "id": "a89adf75398ca47a",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "from sub in mn-ae-STATE",
+        "info": "",
+        "x": 150,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f5d6085047343c16",
+        "type": "http request",
+        "z": "98d16fafc10f441e",
+        "name": "get temp1 from NB-IoT",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/get_temp_sensor1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 800,
+        "y": 1080,
+        "wires": [
+            [
+                "5553702f30d7b214",
+                "7ad624c7143c37e8"
+            ]
+        ]
+    },
+    {
+        "id": "4d0b0aeb2a21c3f0",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "3e118990eb0c1b05"
+            ]
+        ]
+    },
+    {
+        "id": "3e118990eb0c1b05",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + \"Temp_Sensor1\" + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + \"Temperature\" + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + \"27.99\" + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + \"Celsius\" + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "ee394ca8e9a01807"
+            ]
+        ]
+    },
+    {
+        "id": "ee394ca8e9a01807",
+        "type": "http request",
+        "z": "98d16fafc10f441e",
+        "name": "post to mn-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8282/~/mn-cse/mn-name/Temp_Sensor1/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 620,
+        "y": 140,
+        "wires": [
+            [
+                "bf73b7564b2a9e66"
+            ]
+        ]
+    },
+    {
+        "id": "bf73b7564b2a9e66",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "msg.statusCode",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "cde4b5539d4ae5d7",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 79",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f2cd770e57f64d47",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 80",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7f7f8b15b56d1bb4",
+        "type": "http in",
+        "z": "98d16fafc10f441e",
+        "d": true,
+        "name": "",
+        "url": "/temp_sensor1_state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "f383663a3677c93a",
+                "b96bc09ed1120f11",
+                "afdd067a3f9b1562"
+            ]
+        ]
+    },
+    {
+        "id": "f383663a3677c93a",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 81",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "afdd067a3f9b1562",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 390,
+        "y": 240,
+        "wires": [
+            [
+                "178db01332c57437",
+                "272a07f3f5b823e7"
+            ]
+        ]
+    },
+    {
+        "id": "178db01332c57437",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"].nev[0].rep[0][\"m2m:cin\"][0].con[0];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "2b583a3346fad540"
+            ]
+        ]
+    },
+    {
+        "id": "2b583a3346fad540",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            [
+                "754a10b25a8c1238"
+            ]
+        ]
+    },
+    {
+        "id": "754a10b25a8c1238",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "set open_close to flow",
+        "func": "var open_close = msg.payload.obj.str[0].$.val\nflow.set(\"temp_sensor1_open_close\", open_close);\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 240,
+        "wires": [
+            [
+                "f2cd770e57f64d47"
+            ]
+        ]
+    },
+    {
+        "id": "906883ad9b18fa04",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "from sub in mn-ae (not work)",
+        "info": "",
+        "x": 160,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b96bc09ed1120f11",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "272a07f3f5b823e7",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 95",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5553702f30d7b214",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "7ad624c7143c37e8",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 96",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "c3b849ee66d9d479",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1200,
+        "wires": [
+            [
+                "b6ea818c5c9cf3c1"
+            ]
+        ]
+    },
+    {
+        "id": "b6ea818c5c9cf3c1",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "check temp_sensor2 state from flow",
+        "func": "var open_close = flow.get(\"temp_sensor2_open_close\");\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1200,
+        "wires": [
+            [
+                "54be09ad1c072f28"
+            ]
+        ]
+    },
+    {
+        "id": "54be09ad1c072f28",
+        "type": "switch",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 590,
+        "y": 1200,
+        "wires": [
+            [
+                "5c9426826011d103"
+            ],
+            [
+                "2fbf6ecd0002bf3f"
+            ],
+            [
+                "c89125b76deabb78"
+            ]
+        ]
+    },
+    {
+        "id": "2fbf6ecd0002bf3f",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "close",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "5c9426826011d103",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "NULL",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "3d506e5e74e1efa6",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "send GET temp sensor2 to operator server",
+        "info": "",
+        "x": 200,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "c89125b76deabb78",
+        "type": "http request",
+        "z": "98d16fafc10f441e",
+        "name": "get temp2 from NB-IoT",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/get_temp_sensor2",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 800,
+        "y": 1240,
+        "wires": [
+            [
+                "8d1cfb40e86d999c",
+                "ee90e6dbc5e7dd41"
+            ]
+        ]
+    },
+    {
+        "id": "8d1cfb40e86d999c",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "ee90e6dbc5e7dd41",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 97",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "80f899693f49ba93",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1.1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1520,
+        "wires": [
+            [
+                "baa5f3fa358e1ccd"
+            ]
+        ]
+    },
+    {
+        "id": "baa5f3fa358e1ccd",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "check humi_sensor2 state from flow",
+        "func": "var open_close = flow.get(\"humi_sensor2_open_close\");\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1520,
+        "wires": [
+            [
+                "3a15102a4520c84c"
+            ]
+        ]
+    },
+    {
+        "id": "3a15102a4520c84c",
+        "type": "switch",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 590,
+        "y": 1520,
+        "wires": [
+            [
+                "19c13f5e33e352bb"
+            ],
+            [
+                "a9fd1a56055a1e91"
+            ],
+            [
+                "ec0527743e76b36d"
+            ]
+        ]
+    },
+    {
+        "id": "a9fd1a56055a1e91",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "close",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "19c13f5e33e352bb",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "NULL",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "653673ec3fab7b80",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "send GET humi sensor2 to operator server",
+        "info": "",
+        "x": 200,
+        "y": 1480,
+        "wires": []
+    },
+    {
+        "id": "ec0527743e76b36d",
+        "type": "http request",
+        "z": "98d16fafc10f441e",
+        "name": "get humi2 from NB-IoT",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/get_humi_sensor2",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 800,
+        "y": 1560,
+        "wires": [
+            [
+                "97ad9ae2d3b302a0",
+                "03f8530a75b1315f"
+            ]
+        ]
+    },
+    {
+        "id": "97ad9ae2d3b302a0",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "03f8530a75b1315f",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 98",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "e624caa3f2d468d8",
+        "type": "inject",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1.6",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1360,
+        "wires": [
+            [
+                "ffeef11bd65e545d"
+            ]
+        ]
+    },
+    {
+        "id": "ffeef11bd65e545d",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "check humi_sensor1 state from flow",
+        "func": "var open_close = flow.get(\"humi_sensor1_open_close\");\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1360,
+        "wires": [
+            [
+                "67aecf4bb4a3fd56"
+            ]
+        ]
+    },
+    {
+        "id": "67aecf4bb4a3fd56",
+        "type": "switch",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 590,
+        "y": 1360,
+        "wires": [
+            [
+                "245b0bfa31debc0a"
+            ],
+            [
+                "26d3dd41e3a35fac"
+            ],
+            [
+                "ddfb38eca50dcdd0"
+            ]
+        ]
+    },
+    {
+        "id": "26d3dd41e3a35fac",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "close",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "245b0bfa31debc0a",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "NULL",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "858e927ee3ecbac9",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "send GET humi sensor1 to operator server",
+        "info": "",
+        "x": 200,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "ddfb38eca50dcdd0",
+        "type": "http request",
+        "z": "98d16fafc10f441e",
+        "name": "get humi1 from NB-IoT",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:1880/get_humi_sensor1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 800,
+        "y": 1400,
+        "wires": [
+            [
+                "ccf4dfa26a8cf629",
+                "ceb75d7b147010b3"
+            ]
+        ]
+    },
+    {
+        "id": "ccf4dfa26a8cf629",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "ceb75d7b147010b3",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 99",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "16ac7ba0432e2cdd",
+        "type": "comment",
+        "z": "98d16fafc10f441e",
+        "name": "Test send to mn then notify in",
+        "info": "",
+        "x": 160,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7f5412bbdc9ea7b3",
+        "type": "http in",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "url": "/temp_sensor2_state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "5c8d55101ad65380",
+                "b6382dc4c525209f",
+                "603fcbc7d1e9514b"
+            ]
+        ]
+    },
+    {
+        "id": "b6382dc4c525209f",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "5c8d55101ad65380",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 101",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "603fcbc7d1e9514b",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 580,
+        "wires": [
+            [
+                "2d7072e26cc7863b",
+                "5d8767ac4df527d8"
+            ]
+        ]
+    },
+    {
+        "id": "2d7072e26cc7863b",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 580,
+        "wires": [
+            [
+                "c9477efeb17bd471"
+            ]
+        ]
+    },
+    {
+        "id": "5d8767ac4df527d8",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 102",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "c9477efeb17bd471",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "set open_close to flow",
+        "func": "var open_close = msg.payload.obj.str[0].$.val\nflow.set(\"temp_sensor2_open_close\", open_close);\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 580,
+        "wires": [
+            [
+                "9c42cfcabb809813"
+            ]
+        ]
+    },
+    {
+        "id": "9c42cfcabb809813",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 103",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5266df9e33ef4633",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "73f1582b698f9d69",
+        "type": "http in",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "url": "/humi_sensor1_state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "11d31661d4bdf054",
+                "b266eb37a4e1775c",
+                "a227ecf86df3eed7"
+            ]
+        ]
+    },
+    {
+        "id": "a227ecf86df3eed7",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "11d31661d4bdf054",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 104",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "b266eb37a4e1775c",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 720,
+        "wires": [
+            [
+                "f44f98ad7d8b8d4a",
+                "9851848c64c2b2bf"
+            ]
+        ]
+    },
+    {
+        "id": "f44f98ad7d8b8d4a",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 720,
+        "wires": [
+            [
+                "cf64990234f83dc5"
+            ]
+        ]
+    },
+    {
+        "id": "9851848c64c2b2bf",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 105",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "cf64990234f83dc5",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "set open_close to flow",
+        "func": "var open_close = msg.payload.obj.str[0].$.val\nflow.set(\"humi_sensor1_open_close\", open_close);\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 720,
+        "wires": [
+            [
+                "5151d304b5051991"
+            ]
+        ]
+    },
+    {
+        "id": "5151d304b5051991",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 106",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a2fc772c919f4d83",
+        "type": "http in",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "url": "/humi_sensor2_state",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 860,
+        "wires": [
+            [
+                "299b5e7839719549",
+                "270e011cfdafe834",
+                "164cc702c471a47e"
+            ]
+        ]
+    },
+    {
+        "id": "164cc702c471a47e",
+        "type": "http response",
+        "z": "98d16fafc10f441e",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 440,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "299b5e7839719549",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 107",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "270e011cfdafe834",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 860,
+        "wires": [
+            [
+                "5c5fdf56049c9b1d",
+                "ba13eb1f7e260389"
+            ]
+        ]
+    },
+    {
+        "id": "5c5fdf56049c9b1d",
+        "type": "xml",
+        "z": "98d16fafc10f441e",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 710,
+        "y": 860,
+        "wires": [
+            [
+                "b607d7189b430d49"
+            ]
+        ]
+    },
+    {
+        "id": "ba13eb1f7e260389",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 108",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "b607d7189b430d49",
+        "type": "function",
+        "z": "98d16fafc10f441e",
+        "name": "set open_close to flow",
+        "func": "var open_close = msg.payload.obj.str[0].$.val\nflow.set(\"humi_sensor2_open_close\", open_close);\nmsg.payload = open_close;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 860,
+        "wires": [
+            [
+                "5a1e8e7a813ccab4"
+            ]
+        ]
+    },
+    {
+        "id": "5a1e8e7a813ccab4",
+        "type": "debug",
+        "z": "98d16fafc10f441e",
+        "name": "debug 109",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 860,
+        "wires": []
+    }
+]

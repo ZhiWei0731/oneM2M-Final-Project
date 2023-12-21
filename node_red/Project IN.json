@@ -1,0 +1,2204 @@
+[
+    {
+        "id": "4938abbd6b93203a",
+        "type": "tab",
+        "label": "Project IN",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b85a18f38d031e7b",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 74",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9ceddfd94c547f1f",
+        "type": "http in",
+        "z": "4938abbd6b93203a",
+        "d": true,
+        "name": "",
+        "url": "/temp_sensor1_data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "3a4ae9c564bc6f58",
+                "8bc69b9817ac8ab1",
+                "5ae9c7e0dc712067"
+            ]
+        ]
+    },
+    {
+        "id": "8bc69b9817ac8ab1",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 75",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3a4ae9c564bc6f58",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 350,
+        "y": 640,
+        "wires": [
+            [
+                "42edc1b123c049b5"
+            ]
+        ]
+    },
+    {
+        "id": "42edc1b123c049b5",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"].nev[0].rep[0][\"m2m:cin\"][0].con[0];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 640,
+        "wires": [
+            [
+                "9bed2e25267bdca8"
+            ]
+        ]
+    },
+    {
+        "id": "9bed2e25267bdca8",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 610,
+        "y": 640,
+        "wires": [
+            [
+                "de7063ecdae7fb26"
+            ]
+        ]
+    },
+    {
+        "id": "de7063ecdae7fb26",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "handle notify data",
+        "func": "var New = {appID:null, category:null, data:null, unit:null};\nNew.appID = msg.payload.obj.str[0].$.val\nNew.category = msg.payload.obj.str[1].$.val\nNew.data = msg.payload.obj.str[2].$.val \nNew.unit = msg.payload.obj.str[3].$.val\nmsg.payload = New\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 640,
+        "wires": [
+            [
+                "b85a18f38d031e7b",
+                "e2e0ae988ff56eb5",
+                "efec748a7261f782"
+            ]
+        ]
+    },
+    {
+        "id": "c3a1cd60c65688a6",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "notify from mn-ae (not work)",
+        "info": "",
+        "x": 140,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "5ae9c7e0dc712067",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 400,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "831a68a5e1a30ee7",
+        "type": "ui_chart",
+        "z": "4938abbd6b93203a",
+        "d": true,
+        "name": "sensor1 折線圖",
+        "group": "11a92e0582fb7515",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "sensor1",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "20",
+        "ymax": "30",
+        "removeOlder": 1,
+        "removeOlderPoints": "20",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1280,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efec748a7261f782",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "extract data to dashboard",
+        "func": "msg.payload = msg.payload.data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 600,
+        "wires": [
+            [
+                "831a68a5e1a30ee7",
+                "9fcdb0116aec6d9b"
+            ]
+        ]
+    },
+    {
+        "id": "e2e0ae988ff56eb5",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + msg.payload.appID + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + msg.payload.category + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + msg.payload.data + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + msg.payload.unit + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 640,
+        "wires": [
+            [
+                "e933f1d434446f35",
+                "fbce33cb19dbcfb7"
+            ]
+        ]
+    },
+    {
+        "id": "e933f1d434446f35",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to in-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8080/~/in-cse/in-name/Temp_Sensor1/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1270,
+        "y": 640,
+        "wires": [
+            [
+                "3496f6edca8fbceb",
+                "ae0bd0097d91e05f"
+            ]
+        ]
+    },
+    {
+        "id": "3496f6edca8fbceb",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1510,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "fbce33cb19dbcfb7",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "ae0bd0097d91e05f",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "after post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "9fcdb0116aec6d9b",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 77",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b77fab5199567ad8",
+        "type": "ui_switch",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "label": "Temp Sensor1 開關",
+        "tooltip": "",
+        "group": "1b068ac566f78f1c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "1e38e21bbad35f29",
+                "e8bf11a851cf3f60"
+            ]
+        ]
+    },
+    {
+        "id": "1e38e21bbad35f29",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cd761985b54a9d50",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "check output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e8bf11a851cf3f60",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "store isOpened state to flow",
+        "func": "flow.set(\"temp_sensor1_open_close\", msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "cd761985b54a9d50",
+                "2c0cfe7351801b8e"
+            ]
+        ]
+    },
+    {
+        "id": "2c0cfe7351801b8e",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;open_close&quot; val=&quot;' + msg.payload + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 80,
+        "wires": [
+            [
+                "fc084c78a3270599",
+                "6ebd4f6b848b8adf"
+            ]
+        ]
+    },
+    {
+        "id": "fc084c78a3270599",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to mn-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8282/~/mn-cse/mn-name/Temp_Sensor1/STATE",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 920,
+        "y": 80,
+        "wires": [
+            [
+                "2647bbeb9a17b940"
+            ]
+        ]
+    },
+    {
+        "id": "2647bbeb9a17b940",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1090,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6ebd4f6b848b8adf",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "01257a0178c22898",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "control temp sensor1",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a1eb642f6078ce1a",
+        "type": "ui_switch",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "label": "Temp Sensor2 開關",
+        "tooltip": "",
+        "group": "1b068ac566f78f1c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "2144458208fd838a",
+                "e11ecd8c9b36ade7"
+            ]
+        ]
+    },
+    {
+        "id": "2144458208fd838a",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 82",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "5e6f0cfc0b65ac7d",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "check output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e11ecd8c9b36ade7",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "store isOpened state to flow",
+        "func": "flow.set(\"temp_sensor2_open_close\", msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 200,
+        "wires": [
+            [
+                "5e6f0cfc0b65ac7d",
+                "93dcfcb7003a466b"
+            ]
+        ]
+    },
+    {
+        "id": "93dcfcb7003a466b",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;open_close&quot; val=&quot;' + msg.payload + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 200,
+        "wires": [
+            [
+                "7452cdb81092ef07",
+                "468cc81b5353a35c"
+            ]
+        ]
+    },
+    {
+        "id": "7452cdb81092ef07",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to mn-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8282/~/mn-cse/mn-name/Temp_Sensor2/STATE",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 920,
+        "y": 200,
+        "wires": [
+            [
+                "c43670cb10125f76"
+            ]
+        ]
+    },
+    {
+        "id": "c43670cb10125f76",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1090,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "468cc81b5353a35c",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c7c60755e8bd7363",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "control temp sensor2",
+        "info": "",
+        "x": 140,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4cdb31d9aac6a136",
+        "type": "ui_switch",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "label": "Humi Sensor1 開關",
+        "tooltip": "",
+        "group": "1b068ac566f78f1c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "8eb5293df07a1471",
+                "3c0ea8546c80418d"
+            ]
+        ]
+    },
+    {
+        "id": "8eb5293df07a1471",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 83",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8d05d073ae8eddb1",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "check output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3c0ea8546c80418d",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "store isOpened state to flow",
+        "func": "flow.set(\"humi_sensor1_open_close\", msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "8d05d073ae8eddb1",
+                "3cfeabcf48182583"
+            ]
+        ]
+    },
+    {
+        "id": "3cfeabcf48182583",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;open_close&quot; val=&quot;' + msg.payload + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 320,
+        "wires": [
+            [
+                "e4f99df12800d646",
+                "a4a102919ec218b3"
+            ]
+        ]
+    },
+    {
+        "id": "e4f99df12800d646",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to mn-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8282/~/mn-cse/mn-name/Humi_Sensor1/STATE",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 920,
+        "y": 320,
+        "wires": [
+            [
+                "301a46c860cf865b"
+            ]
+        ]
+    },
+    {
+        "id": "301a46c860cf865b",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1090,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "a4a102919ec218b3",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4abf878a61b076e5",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "control humi sensor1",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3da08b010180865f",
+        "type": "ui_switch",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "label": "Humi Sensor1 開關",
+        "tooltip": "",
+        "group": "1b068ac566f78f1c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "7b3d60e60ac11d51",
+                "3664bb7c30676783"
+            ]
+        ]
+    },
+    {
+        "id": "7b3d60e60ac11d51",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 84",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "043bbc49e0c1a573",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "check output",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3664bb7c30676783",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "store isOpened state to flow",
+        "func": "flow.set(\"humi_sensor2_open_close\", msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "043bbc49e0c1a573",
+                "c669152bb5cf1f18"
+            ]
+        ]
+    },
+    {
+        "id": "c669152bb5cf1f18",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;open_close&quot; val=&quot;' + msg.payload + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 440,
+        "wires": [
+            [
+                "33a278782edd6863",
+                "edf73ac6bda62199"
+            ]
+        ]
+    },
+    {
+        "id": "33a278782edd6863",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to mn-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8282/~/mn-cse/mn-name/Humi_Sensor2/STATE",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 920,
+        "y": 440,
+        "wires": [
+            [
+                "06297b543c45822b"
+            ]
+        ]
+    },
+    {
+        "id": "06297b543c45822b",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1090,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "edf73ac6bda62199",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d10dcbc789249865",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "control humi sensor2",
+        "info": "",
+        "x": 130,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "644d5e01f09971ca",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 88",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "740ec95b2e34f312",
+        "type": "http in",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "url": "/temp_sensor1_data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 860,
+        "wires": [
+            [
+                "ed491c061b4b1a42",
+                "2acb4223397c1e9f",
+                "0e35c601030ce702"
+            ]
+        ]
+    },
+    {
+        "id": "ed491c061b4b1a42",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 89",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "0e35c601030ce702",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 860,
+        "wires": [
+            [
+                "efbac658e3803122"
+            ]
+        ]
+    },
+    {
+        "id": "efbac658e3803122",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 610,
+        "y": 860,
+        "wires": [
+            [
+                "3d6fd4f29715089f"
+            ]
+        ]
+    },
+    {
+        "id": "3d6fd4f29715089f",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "handle notify data",
+        "func": "var New = {appID:null, category:null, data:null, unit:null};\nNew.appID = msg.payload.obj.str[0].$.val\nNew.category = msg.payload.obj.str[1].$.val\nNew.data = msg.payload.obj.str[2].$.val \nNew.unit = msg.payload.obj.str[3].$.val\nmsg.payload = New\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 860,
+        "wires": [
+            [
+                "644d5e01f09971ca",
+                "825cc8c0d4eeb373",
+                "2bb5cd58f42e1f7b"
+            ]
+        ]
+    },
+    {
+        "id": "ea6d7b5254704709",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "notify from mn-ae",
+        "info": "",
+        "x": 100,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "2acb4223397c1e9f",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 400,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "67ed02984e636891",
+        "type": "ui_chart",
+        "z": "4938abbd6b93203a",
+        "name": "temp sensor1",
+        "group": "11a92e0582fb7515",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "temp sensor1",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "30",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#73d216",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1280,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2bb5cd58f42e1f7b",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "extract data to dashboard",
+        "func": "msg.payload = msg.payload.data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 820,
+        "wires": [
+            [
+                "67ed02984e636891",
+                "5dc6d9edafbf85fc"
+            ]
+        ]
+    },
+    {
+        "id": "825cc8c0d4eeb373",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + msg.payload.appID + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + msg.payload.category + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + msg.payload.data + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + msg.payload.unit + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 860,
+        "wires": [
+            [
+                "3c596b616599e470",
+                "6f708ca3b07ac134"
+            ]
+        ]
+    },
+    {
+        "id": "3c596b616599e470",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to in-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8080/~/in-cse/in-name/Temp_Sensor1/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1270,
+        "y": 860,
+        "wires": [
+            [
+                "107657fc46196256",
+                "a6d1956053a142dd"
+            ]
+        ]
+    },
+    {
+        "id": "107657fc46196256",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1510,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "6f708ca3b07ac134",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "a6d1956053a142dd",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "after post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "5dc6d9edafbf85fc",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 90",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "25fda093cf0bb0ba",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 110",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "21b5681e97b3d989",
+        "type": "http in",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "url": "/temp_sensor2_data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 1060,
+        "wires": [
+            [
+                "899352d9e3e026f8",
+                "99d3080f57f545c4",
+                "97b50ecb28fdaa72"
+            ]
+        ]
+    },
+    {
+        "id": "899352d9e3e026f8",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 111",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "97b50ecb28fdaa72",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1060,
+        "wires": [
+            [
+                "d4863597fd4a2bfe"
+            ]
+        ]
+    },
+    {
+        "id": "d4863597fd4a2bfe",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 620,
+        "y": 1060,
+        "wires": [
+            [
+                "80c803fdfdacd263"
+            ]
+        ]
+    },
+    {
+        "id": "80c803fdfdacd263",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "handle notify data",
+        "func": "var New = {appID:null, category:null, data:null, unit:null};\nNew.appID = msg.payload.obj.str[0].$.val\nNew.category = msg.payload.obj.str[1].$.val\nNew.data = msg.payload.obj.str[2].$.val \nNew.unit = msg.payload.obj.str[3].$.val\nmsg.payload = New\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1060,
+        "wires": [
+            [
+                "25fda093cf0bb0ba",
+                "fb658f6ec27004cc",
+                "7f3ddcabd1d511e4"
+            ]
+        ]
+    },
+    {
+        "id": "0fe6e0ec432a5b96",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "notify from mn-ae",
+        "info": "",
+        "x": 110,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "99d3080f57f545c4",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 410,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "b572539ff4844764",
+        "type": "ui_chart",
+        "z": "4938abbd6b93203a",
+        "name": "temp sensor2",
+        "group": "11a92e0582fb7515",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "temp sensor2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "30",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1290,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f3ddcabd1d511e4",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "extract data to dashboard",
+        "func": "msg.payload = msg.payload.data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1020,
+        "wires": [
+            [
+                "b572539ff4844764",
+                "5e1132c414f89761"
+            ]
+        ]
+    },
+    {
+        "id": "fb658f6ec27004cc",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + msg.payload.appID + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + msg.payload.category + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + msg.payload.data + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + msg.payload.unit + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 1060,
+        "wires": [
+            [
+                "1e14be9e1c3c38a1",
+                "413839b339e2e2a7"
+            ]
+        ]
+    },
+    {
+        "id": "1e14be9e1c3c38a1",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to in-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8080/~/in-cse/in-name/Temp_Sensor2/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1280,
+        "y": 1060,
+        "wires": [
+            [
+                "a0503cf91321c59d",
+                "e78a7c43cfedc624"
+            ]
+        ]
+    },
+    {
+        "id": "a0503cf91321c59d",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1510,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "413839b339e2e2a7",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "e78a7c43cfedc624",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "after post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1530,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "5e1132c414f89761",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 112",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "8316edaab18adb84",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 113",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "bf7eab90aea4b99d",
+        "type": "http in",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "url": "/humi_sensor1_data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 1260,
+        "wires": [
+            [
+                "979907ce41861421",
+                "63ddbfcea73707c3",
+                "a8184f1f67b60135"
+            ]
+        ]
+    },
+    {
+        "id": "979907ce41861421",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 114",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "a8184f1f67b60135",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1260,
+        "wires": [
+            [
+                "0f8527b4ef4b6cdc"
+            ]
+        ]
+    },
+    {
+        "id": "0f8527b4ef4b6cdc",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 620,
+        "y": 1260,
+        "wires": [
+            [
+                "7e47c847463e51f9"
+            ]
+        ]
+    },
+    {
+        "id": "7e47c847463e51f9",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "handle notify data",
+        "func": "var New = {appID:null, category:null, data:null, unit:null};\nNew.appID = msg.payload.obj.str[0].$.val\nNew.category = msg.payload.obj.str[1].$.val\nNew.data = msg.payload.obj.str[2].$.val \nNew.unit = msg.payload.obj.str[3].$.val\nmsg.payload = New\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1260,
+        "wires": [
+            [
+                "8316edaab18adb84",
+                "0a47e781a06bbe1f",
+                "7e1d81e3504e9f9f"
+            ]
+        ]
+    },
+    {
+        "id": "410157f49235d96e",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "notify from mn-ae",
+        "info": "",
+        "x": 110,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "63ddbfcea73707c3",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 410,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "7e1d81e3504e9f9f",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "extract data to dashboard",
+        "func": "msg.payload = msg.payload.data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1220,
+        "wires": [
+            [
+                "836b8dbb23312881",
+                "6de0ee9d6d072e02"
+            ]
+        ]
+    },
+    {
+        "id": "0a47e781a06bbe1f",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + msg.payload.appID + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + msg.payload.category + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + msg.payload.data + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + msg.payload.unit + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 1260,
+        "wires": [
+            [
+                "364419f1aa0a6fe2",
+                "4e361035f033415a"
+            ]
+        ]
+    },
+    {
+        "id": "364419f1aa0a6fe2",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to in-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8080/~/in-cse/in-name/Humi_Sensor1/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1280,
+        "y": 1260,
+        "wires": [
+            [
+                "5835264f98211062",
+                "cd9dc85302996cda"
+            ]
+        ]
+    },
+    {
+        "id": "5835264f98211062",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1520,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "4e361035f033415a",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "cd9dc85302996cda",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "after post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "836b8dbb23312881",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 115",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "239bb7f2397d4320",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 116",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "c8b23c2beecab067",
+        "type": "http in",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "url": "/humi_sensor2_data",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 1460,
+        "wires": [
+            [
+                "d0cb82b1940e3223",
+                "84a53fd0b7c19f12",
+                "16d0aff961bdf5c7"
+            ]
+        ]
+    },
+    {
+        "id": "d0cb82b1940e3223",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 117",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "16d0aff961bdf5c7",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "get state",
+        "func": "var data = msg.payload[\"m2m:sgn\"][\"m2m:nev\"][\"m2m:rep\"][\"m2m:cin\"][\"con\"];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 1460,
+        "wires": [
+            [
+                "1bc4bb5694b00a57"
+            ]
+        ]
+    },
+    {
+        "id": "1bc4bb5694b00a57",
+        "type": "xml",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 630,
+        "y": 1460,
+        "wires": [
+            [
+                "0c68196b6d8871c7"
+            ]
+        ]
+    },
+    {
+        "id": "0c68196b6d8871c7",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "handle notify data",
+        "func": "var New = {appID:null, category:null, data:null, unit:null};\nNew.appID = msg.payload.obj.str[0].$.val\nNew.category = msg.payload.obj.str[1].$.val\nNew.data = msg.payload.obj.str[2].$.val \nNew.unit = msg.payload.obj.str[3].$.val\nmsg.payload = New\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1460,
+        "wires": [
+            [
+                "239bb7f2397d4320",
+                "0f63faba29c97487",
+                "c8e9a7dee509784e"
+            ]
+        ]
+    },
+    {
+        "id": "757a047fd8e684e9",
+        "type": "comment",
+        "z": "4938abbd6b93203a",
+        "name": "notify from mn-ae",
+        "info": "",
+        "x": 120,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "84a53fd0b7c19f12",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "Notification Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 420,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "c8e9a7dee509784e",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "extract data to dashboard",
+        "func": "msg.payload = msg.payload.data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 1420,
+        "wires": [
+            [
+                "6f1d0407fa9c848f",
+                "36c3e8a4f9f414d3"
+            ]
+        ]
+    },
+    {
+        "id": "0f63faba29c97487",
+        "type": "function",
+        "z": "4938abbd6b93203a",
+        "name": "sav epayload and headers",
+        "func": "/*jshint multistr: true */\nvar data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t            <cnf>message</cnf>\\\n                <con>\\\n                    &lt;obj&gt;\\\n                        &lt;str name=&quot;appID&quot; val=&quot;' + msg.payload.appID + '&quot;/&gt;\\\n                        &lt;str name=&quot;category&quot; val=&quot;' + msg.payload.category + '&quot;/&gt;\\\n                        &lt;str name=&quot;data&quot; val=&quot;' + msg.payload.data + '&quot;/&gt;\\\n                        &lt;str name=&quot;unit&quot; val=&quot;' + msg.payload.unit + '&quot;/&gt;\\\n                    &lt;/obj&gt;\\\n                </con>\\\n            </m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 1460,
+        "wires": [
+            [
+                "f8b07b1d1acf053e",
+                "9638790d9244d2b6"
+            ]
+        ]
+    },
+    {
+        "id": "f8b07b1d1acf053e",
+        "type": "http request",
+        "z": "4938abbd6b93203a",
+        "name": "post to in-cse",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8080/~/in-cse/in-name/Humi_Sensor2/DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1290,
+        "y": 1460,
+        "wires": [
+            [
+                "1b688b1e1bb9b8d7",
+                "8972f0c54068fe0c"
+            ]
+        ]
+    },
+    {
+        "id": "1b688b1e1bb9b8d7",
+        "type": "http response",
+        "z": "4938abbd6b93203a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1520,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "9638790d9244d2b6",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "prepared post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "8972f0c54068fe0c",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "after post cin",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "6f1d0407fa9c848f",
+        "type": "debug",
+        "z": "4938abbd6b93203a",
+        "name": "debug 118",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "6de0ee9d6d072e02",
+        "type": "ui_gauge",
+        "z": "4938abbd6b93203a",
+        "name": "humi sensor1",
+        "group": "11a92e0582fb7515",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humi sensor1",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1300,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "36c3e8a4f9f414d3",
+        "type": "ui_gauge",
+        "z": "4938abbd6b93203a",
+        "name": "humi sensor2",
+        "group": "11a92e0582fb7515",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humi sensor2",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1300,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "11a92e0582fb7515",
+        "type": "ui_group",
+        "name": "資料輸出",
+        "tab": "97ae4be36655c4bb",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1b068ac566f78f1c",
+        "type": "ui_group",
+        "name": "資料輸入",
+        "tab": "97ae4be36655c4bb",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "97ae4be36655c4bb",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
