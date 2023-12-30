@@ -1,4 +1,6 @@
 # oneM2M Final Project Demo
+[原始 README 連結](https://hackmd.io/@ZhiWei0731/oneM2M-Final-Project)
+[GitHub 連結](https://github.com/ZhiWei0731/oneM2M-Final-Project) 
 
 ## 環境版本
 * Ubuntu 18.04.2 LTS
@@ -24,7 +26,7 @@ node-red 頁面右上方 -> Manage palette -> Palette -> install -> 搜尋 dashb
 
 
 ## 架構圖
-![Project_Flow](https://hackmd.io/_uploads/SkHA_gzwp.png)
+![Project_Flow](https://hackmd.io/_uploads/SJ5_ueaP6.png)
 
 ## dashboard
 ![dashboard](https://hackmd.io/_uploads/Bygza5gfwT.png)
