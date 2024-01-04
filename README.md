@@ -27,6 +27,22 @@ node-red 頁面右上方 -> Manage palette -> Palette -> install -> 搜尋 dashb
 
 ## 架構圖
 ![Project_Flow](https://hackmd.io/_uploads/SJ5_ueaP6.png)
+1. 使用者在 node-red 的 dashboard 點選開關，決定是否要獲取資料。
+2. 在 mn 對應的 sensor AE 的 STATE container 下，將開關資訊以 content instance 的形式儲存。
+3. node-red 根據 content instance 的資訊，去決定要不要獲取最新資料。
+4. 若要獲取資料，則每隔一秒發出 HTTP GET request。
+5. node-red 將最新的資料以 HTTP POST request 的形式傳給 mn 上的 Sensor(AE)，request 的形式如下面。
+```
+http://127.0.0.1:8282/~/mn-cse/mn-name/Sensor?appID=Temp_Sensor1&category=Temperature&data=27.25&unit=Celsius
+```
+6. Sensor 透過 poa 將 POST request 轉給 IPE 處理。
+7. IPE 處理封包後，在 mn 下建立對應的 content instance。
+8. 當 mn 的 DATA 底下有新建資料，透過 sub 通知 IN。
+9. 將通知轉交給 node-red 處理。
+10. 在 IN 下建立對應的 content instance，並呈現在 dashboard 上。
+
+
+
 
 ## dashboard
 ![dashboard](https://hackmd.io/_uploads/Bygza5gfwT.png)
